@@ -1,0 +1,20 @@
+diff -uprN -x .git gnu-efi-orig/apps/Makefile gnu-efi/apps/Makefile
+--- gnu-efi-orig/apps/Makefile	2020-06-24 06:19:44.532999530 +0000
++++ gnu-efi/apps/Makefile	2020-06-24 06:13:30.741969230 +0000
+@@ -45,14 +45,14 @@ TOPDIR = $(SRCDIR)/..
+ CDIR=$(TOPDIR)/..
+ LINUX_HEADERS	= /usr/src/sys/build
+ CPPFLAGS	+= -D__KERNEL__ -I$(LINUX_HEADERS)/include
+-CRTOBJS		= ../gnuefi/crt0-efi-$(ARCH).o
++CRTOBJS		= ../$(ARCH)/gnuefi/crt0-efi-$(ARCH).o
+ 
+ LDSCRIPT	= $(TOPDIR)/gnuefi/elf_$(ARCH)_efi.lds
+ ifneq (,$(findstring FreeBSD,$(OS)))
+ LDSCRIPT	= $(TOPDIR)/gnuefi/elf_$(ARCH)_fbsd_efi.lds
+ endif
+ 
+-LDFLAGS		+= -shared -Bsymbolic -L../lib -L../gnuefi $(CRTOBJS)
++LDFLAGS		+= -shared -Bsymbolic -L../$(ARCH)/lib -L../$(ARCH)/gnuefi $(CRTOBJS)
+ 
+ LOADLIBES	+= -lefi -lgnuefi
+ LOADLIBES	+= $(LIBGCC)
